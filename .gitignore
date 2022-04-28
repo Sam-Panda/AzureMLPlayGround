@@ -2,3 +2,4 @@ build
 *.whl
 *.zip
 .gitignore
+.env
