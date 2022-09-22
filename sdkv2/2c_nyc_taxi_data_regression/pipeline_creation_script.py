@@ -34,7 +34,6 @@ data_prep_src_dir = "./prep_src"
 os.makedirs(data_prep_src_dir, exist_ok=True)
 
 
-
 data_prep_component = command(
     name="data_prep_nyc_taxi",
     display_name="Data preparation (prepare_taxi_data)",
@@ -43,7 +42,7 @@ data_prep_component = command(
         "raw_data" : Input(type="uri_folder")
     },
     outputs=dict(
-        prep_data=Output(type="uri_folder", mode="rw_mount")
+        prep_data=Output(type="uri_folder", mode="rw_mount", path = "azureml://datastores/blob_example/paths/nyctaxiexample/output1" )
     ),
     # The source folder of the component
     code=data_prep_src_dir,
@@ -55,7 +54,7 @@ data_prep_component = command(
     is_deterministic= False
 )
 
-# transforming the data
+# 2 transforming the data
 
 
 transform_data_component = command(
@@ -78,7 +77,7 @@ transform_data_component = command(
 
 )
 
-# train model with the transformeed data
+# 3 train model with the transformeed data
 
 train_model = command(
     name="taxi_feature_engineering",
@@ -100,6 +99,8 @@ train_model = command(
     environment=f"AzureML-sklearn-0.24-ubuntu18.04-py37-cpu@latest",
     is_deterministic= False   
 )
+
+# 4. prediction 
 
 predict_result = command(
     name="predict_taxi_fares",
@@ -123,7 +124,7 @@ predict_result = command(
     is_deterministic= False  
 )
 
-
+# 5. Scoring
 score_data = command(
 
     name="score_model",
