@@ -3,3 +3,5 @@ build
 *.zip
 .gitignore
 .env
+config.json
+config.json
