@@ -39,7 +39,7 @@ pipeline_job_env = Environment(
     tags={"scikit-learn": "0.24.2"},
     conda_file=os.path.join("./dependencies", "conda.yml"),
     image="mcr.microsoft.com/azureml/openmpi3.1.2-ubuntu18.04:latest",
-    version="2.0",
+    version="1.0",
 )
 pipeline_job_env = ml_client.environments.create_or_update(pipeline_job_env)
 

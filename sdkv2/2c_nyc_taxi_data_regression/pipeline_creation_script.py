@@ -64,7 +64,7 @@ data_prep_component = command(
         "raw_data" : Input(type="uri_folder")
     },
     outputs=dict(
-        prep_data=Output(type="uri_folder", mode="rw_mount", path = "azureml://datastores/blob_example/paths/nyctaxiexample/output1" )
+        prep_data=Output(type="uri_folder", mode="rw_mount" )
     ),
     # The source folder of the component
     code=data_prep_src_dir,

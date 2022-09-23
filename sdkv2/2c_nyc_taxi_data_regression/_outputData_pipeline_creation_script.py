@@ -42,7 +42,7 @@ data_prep_component = command(
         "raw_data" : Input(type="uri_folder")
     },
     outputs=dict(
-        prep_data=Output(type="uri_folder", mode="rw_mount", path = "azureml://datastores/blob_example/paths/nyctaxiexample/output1" )
+        prep_data=Output(type="uri_folder", mode="rw_mount")
     ),
     # The source folder of the component
     code=data_prep_src_dir,
@@ -67,7 +67,7 @@ def nyc_taxi_data_regression(
     prepare_sample_data = data_prep_component(
         raw_data=data_prep_input
         )
-    
+    prepare_sample_data.outputs.prep_data.path="azureml://datastores/blob_example/paths/nyctaxiexample/output1"
     # a pipeline returns a dictionary of outputs
     # keys will code for the pipeline output identifier
     return {
@@ -76,7 +76,8 @@ def nyc_taxi_data_regression(
     }
 
 pipeline_job = nyc_taxi_data_regression()
-pipeline_job.settings.default_datastore = "blob_example"
+# pipeline_job.outputs.pipeline_job_prepped_data.path = Output(type="uri_folder", path="azureml://datastores/blob_example/paths/nyctaxiexample/output1")
+# pipeline_job.settings.default_datastore = "blob_example"
 # submit job to workspace
 pipeline_job = ml_client.jobs.create_or_update(
     pipeline_job, experiment_name="pipeline_samples Output 1"
