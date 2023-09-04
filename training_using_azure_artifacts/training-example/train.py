@@ -11,6 +11,7 @@ from sklearn.metrics import roc_curve
 import matplotlib.pyplot as plt
 
 # Get script arguments
+
 parser = argparse.ArgumentParser()
 parser.add_argument('--regularization', type=float, dest='reg_rate', default=0.01, help='regularization rate')
 parser.add_argument("--input-data", type=str, dest='training_dataset_id', help='training dataset')
